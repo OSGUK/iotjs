@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<title> Blinkt Light </title>
+</head>
+
+<body>
+<h1> Blinkt! Light Controller </h1>
+
+<input id="onButton" type="button" value="ON" onclick="lighton();" />
+<input id="offButton" type="button" value="OFF" onclick="lightoff();" />
+
+<script>
+  document.getElementById("onButton").onclick = function () {
+    // Replace alter() with our blinkt() function. E.g. turnlighton()
+    alert('on!'); 
+  };
+
+  document.getElementById("offButton").onclick = function () {
+    alert('off!'); 
+  };
+
+</script>
+</body>
+
+</html>
