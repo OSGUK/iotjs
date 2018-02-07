@@ -23,6 +23,10 @@
         /> pip install netifaces
         or
         /> pip install -r requirements.txt
+
+    To run:
+        /> python ip_get.py
+        
 '''
 
 from netifaces import interfaces, ifaddresses, AF_INET, AF_LINK
