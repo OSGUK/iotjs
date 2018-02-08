@@ -107,6 +107,9 @@
       "js_file": "js/ble_hci_socket.js",
       "require": ["events"]
     },
+    "blinkt": {
+      "js_file": "js/blinkt.js"
+    },
     "buffer": {
       "native_files": ["modules/iotjs_module_buffer.c"],
       "init": "InitBuffer",
@@ -160,7 +163,8 @@
       },
       "native_files": ["modules/iotjs_module_gpio.c"],
       "init": "InitGpio",
-      "js_file": "js/gpio.js"
+      "js_file": "js/gpio.js",
+      "require": ["events", "util"]
     },
     "http": {
       "js_file": "js/http.js",
@@ -253,7 +257,8 @@
       },
       "native_files": ["modules/iotjs_module_pwm.c"],
       "init": "InitPwm",
-      "js_file": "js/pwm.js"
+      "js_file": "js/pwm.js",
+      "require": ["util"]
     },
     "spi": {
       "platforms": {
@@ -269,7 +274,8 @@
       },
       "native_files": ["modules/iotjs_module_spi.c"],
       "init": "InitSpi",
-      "js_file": "js/spi.js"
+      "js_file": "js/spi.js",
+      "require": ["util"]
     },
     "stm32f4dis": {
       "platforms": {
