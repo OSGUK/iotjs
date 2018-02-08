@@ -1,26 +1,49 @@
 <html>
 
 <head>
-<title> Blinkt Light </title>
+  <title> Blinkt Light </title>
 </head>
 
 <body>
-<h1> Blinkt! Light Controller </h1>
+  <h1> Blinkt! Light Controller </h1>
 
-<input id="onButton" type="button" value="ON" onclick="lighton();" />
-<input id="offButton" type="button" value="OFF" onclick="lightoff();" />
+  <input id="RainbowButton" type="button" value="Show Rainbow lights" onclick="lightOn("Rainbow");" />
+  <input id="SingleButton" type="button" value="Show Single light" onclick="lightOn("Single");" />
 
-<script>
-  document.getElementById("onButton").onclick = function () {
-    // Replace alter() with our blinkt() function. E.g. turnlighton()
-    alert('on!'); 
-  };
+  <script>
+    document.getElementById("RainbowButton").onclick = function() {
+      lightOn("Rainbow");
+    };
 
-  document.getElementById("offButton").onclick = function () {
-    alert('off!'); 
-  };
+    document.getElementById("SingleButton").onclick = function() {
+      lightOn("Single");
+    };
 
-</script>
+    function lightOn(cmd) {
+      var http = new XMLHttpRequest();
+      var url = "http://localhost:8080/light";
+      var params;
+      if (cmd.indexOf("Rainbow") >= 0)
+      {
+        params = "command=Rainbow";
+      }
+      else if (cmd.indexOf("Single") >= 0)
+      {
+        params = "command=Single";
+      }
+      http.open("POST", url, true);
+
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+          alert("Enjoy!");
+        }
+     }
+      http.send(params);
+    }
+
+  </script>
 </body>
 
 </html>
