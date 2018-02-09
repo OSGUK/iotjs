@@ -14,6 +14,7 @@
  */
 
 var http = require('http');
+var lightControl = require('light_control')
 var port = 8080;
 var path = '/light';
 
@@ -74,7 +75,7 @@ var server = http.createServer(function(req, res) {
     receive(req, function(data) {
       console.log(data);
       if (data.indexOf("Rainbow") >= 0) {
-        showRainbowLight();
+        showRainbowLight2();
       }
       else if (data.indexOf("Single") >= 0) {
         singleLightOn();
