@@ -10,6 +10,16 @@
   <input id="RainbowButton" type="button" value="Show Rainbow lights" onclick="lightOn("Rainbow");" />
   <input id="SingleButton" type="button" value="Show Single light" onclick="lightOn("Single");" />
 
+
+  <form action="/light/" method="get">
+    Choose your favorite subject:
+    <button name="Rainbow" type="submit" value="Rainbow">Show Rainbow lights</button>
+    <button name="Single" type="submit" value="Single">Show Single light</button>
+  </form>
+
+
+
+
   <script>
     document.getElementById("RainbowButton").onclick = function() {
       lightOn("Rainbow");
@@ -21,7 +31,7 @@
 
     function lightOn(cmd) {
       var http = new XMLHttpRequest();
-      var url = "http://localhost:8080/light";
+      var url = window.location.href;
       var params;
       if (cmd.indexOf("Rainbow") >= 0)
       {
