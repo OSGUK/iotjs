@@ -17,9 +17,12 @@
  * Created by nherriot on 09/02/18.
  */
 
+var Blinkt = require('blinkt');
 var leds = new Blinkt();
 
-function showRainbowLight2() {
+var lightcontrol = {};
+
+exports linghtcontrol.showRainbowLight2 = function showRainbowLight2() {
   try {
     leds.setup();
   } catch (e) {
@@ -115,7 +118,7 @@ function showRainbowLight2() {
 
 
 
-function singleLightOn() {
+exports lightcontrol.singleLightOn2 = function singleLightOn2() {
 
   try {
     leds.setup();
@@ -231,3 +234,7 @@ function singleLightOn() {
     console.log("******** All LED's are cleared. *******");
   }, 1000);
 }
+
+
+exports.showRainbowLight2 = showRainbowLight2;
+exports.singleLightOn2 = singleLightOn2;
