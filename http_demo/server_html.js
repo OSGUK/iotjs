@@ -17,15 +17,8 @@ var http = require('http');
 var port = 8080;
 var path = '/light';
 
-var Blinkt = require('blinkt');
-var leds = new Blinkt();
-
 var fs = require('fs');
-var netiface = require('dns');
-
 var lightcontrol = require('./lightcontrol.js');
-
-var numPixels = 8;
 
 var server = http.createServer(function(req, res) {
   // The path for onoff.html is relevant. Here I assume that it's in the same directory of
@@ -36,15 +29,6 @@ var server = http.createServer(function(req, res) {
   console.log(req.url);
   var myval = req.url.split('/');
   console.log(myval[1]);
-  //console.log()
-
-  //netiface.lookupService('127.0.0.1', 22, (err, hostname, service), console.log(hostname, service));
-
-  netiface.lookup('Zenbook-UX32A', function(err, address) {
-    console.log(address);
-  });
-
-  //console.log(netiface.localName())
 
   if (myval[1] == 'light') {
     console.log('yahoo');
@@ -70,16 +54,15 @@ var server = http.createServer(function(req, res) {
     receive(req, function(data) {
       console.log(data);
       if (data.indexOf("Rainbow") >= 0) {
-        //showRainbowLight();
         lightcontrol.showRainbowLight();
       }
       else if (data.indexOf("Single") >= 0) {
-      //  singleLightOn();
       lightcontrol.singleLightOn();
       }
     });
   }
 }).listen(port);
+
 
 function receive(incoming, callback) {
   var data = '';
