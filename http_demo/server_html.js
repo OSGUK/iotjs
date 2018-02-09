@@ -43,8 +43,13 @@ var server = http.createServer(function(req, res) {
   });
 
   //console.log(netiface.localName())
-
-  if (myval[1] == 'light') {
+  if (req.url.indexOf("Rainbow") >= 0) {
+    showRainbowLight();
+  }
+  else if (req.url.indexOf("Single") >= 0) {
+    singleLightOn();
+  }
+  else if (myval[1] == 'light') {
     console.log('yahoo');
     fs.readFile('onoff.html', function(err, data) {
       res.writeHead(200, {
@@ -64,6 +69,7 @@ var server = http.createServer(function(req, res) {
     res.end();
 
   }
+  
  if (req.method == 'POST') {
     receive(req, function(data) {
       console.log(data);
@@ -74,7 +80,7 @@ var server = http.createServer(function(req, res) {
         singleLightOn();
       }
     });
-  }
+  } 
 }).listen(port);
 
 function receive(incoming, callback) {
