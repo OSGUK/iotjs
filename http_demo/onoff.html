@@ -7,53 +7,12 @@
 <body>
   <h1> Blinkt! Light Controller </h1>
 
-  <input id="RainbowButton" type="button" value="Show Rainbow lights" onclick="lightOn("Rainbow");" />
-  <input id="SingleButton" type="button" value="Show Single light" onclick="lightOn("Single");" />
-
-
-  <form action="/light/" method="get">
-    Choose your favorite subject:
-    <button name="Rainbow" type="submit" value="Rainbow">Show Rainbow lights</button>
-    <button name="Single" type="submit" value="Single">Show Single light</button>
+  <form action="/light/" method="post">
+    Choose your favorite ligth effect:
+    <button name="Rainbow" type="submit" value="Rainbow">Show Rainbow Lights</button>
+    <button name="Single" type="submit" value="Single">Show Moving White Light</button>
   </form>
 
-
-
-
-  <script>
-    document.getElementById("RainbowButton").onclick = function() {
-      lightOn("Rainbow");
-    };
-
-    document.getElementById("SingleButton").onclick = function() {
-      lightOn("Single");
-    };
-
-    function lightOn(cmd) {
-      var http = new XMLHttpRequest();
-      var url = window.location.href;
-      var params;
-      if (cmd.indexOf("Rainbow") >= 0)
-      {
-        params = "command=Rainbow";
-      }
-      else if (cmd.indexOf("Single") >= 0)
-      {
-        params = "command=Single";
-      }
-      http.open("POST", url, true);
-
-      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-      http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-          alert("Enjoy!");
-        }
-     }
-      http.send(params);
-    }
-
-  </script>
 </body>
 
 </html>
