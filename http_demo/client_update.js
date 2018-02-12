@@ -25,8 +25,8 @@ var message = JSON.stringify({
 
 
 var options = {
-  hostname: '192.168.110.121',
-  port: 8000,
+  hostname: 'http://www.noisyatom.tech/',
+  port: 80,
   path: '/iot/register/',
   method: 'PUT',
   headers: {

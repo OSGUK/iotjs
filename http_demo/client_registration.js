@@ -14,16 +14,21 @@
  */
 
 var http = require('http');
+var fs = require('fs');
+
+var IPMAC = getLocalIP();
 
 var message = JSON.stringify({
-  device_id: '16',
+  //device_id: IPMAC[1][0],
+device_id: "b8:27:eb:01:d8:3f",
   device_name: 'IoT Device Raspberry Pi0-W',
-  local_ip: '192.168.110.120',
+  //local_ip: IPMAC[0][0],
+   local_ip: "192.168.110.79",
 });
 
 var options = {
-  hostname: '192.168.110.121',
-  port: 8000,
+  hostname: 'www.noisyatom.tech',
+  port: 80,
   path: '/iot/register/',
   method: 'POST',
   headers: {
@@ -34,7 +39,8 @@ var options = {
 http.request(options, function (res) {
   receive(res, function (data) {
     var obj = JSON.parse(data);
-    console.log(obj.answer);
+    console.log("Request response from IoT server:");
+    console.log(obj);
   });
 }).end(message);
 
@@ -48,4 +54,26 @@ function receive(incoming, callback) {
   incoming.on('end', function () {
     callback ? callback(data) : '';
   });
+}
+
+function getLocalIP() {
+  var addr = [];
+  fs.readFile('./config/machine_net_interface.json', function (err, data) {
+      if (err)
+      {
+        console.log("read error!");
+      }
+      else
+      {
+        var obj = JSON.parse(data);
+        addr = obj.wlan0;
+        console.log(addr);
+        var ip = addr[0][0];
+        console.log(ip);
+        var mac = addr[1][0];
+        console.log(mac);
+      }
+  });
+
+  return addr;
 }
