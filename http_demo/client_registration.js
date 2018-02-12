@@ -55,7 +55,7 @@ function receive(incoming, callback) {
 }
 
 function getIPMAC() {
-  var fd = fs.openSync('./config/machine_net_interface.json', 'r');
+  var fd = fs.openSync('/home/pi/iotjs_osguk/iotjs/http_demo/config/machine_net_interface.json', 'r');
   var buffer = new Buffer(256);
   var bytesRead = fs.readSync(fd, buffer, 0, buffer.length, 0);
   var str = buffer.toString();
