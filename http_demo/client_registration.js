@@ -16,14 +16,13 @@
 var http = require('http');
 var fs = require('fs');
 
-var IPMAC = getLocalIP();
+var IPMAC = [];
+IPMAC = getIPMAC();
 
 var message = JSON.stringify({
-  //device_id: IPMAC[1][0],
-device_id: "b8:27:eb:01:d8:3f",
+  device_id: IPMAC[1][0],
   device_name: 'IoT Device Raspberry Pi0-W',
-  //local_ip: IPMAC[0][0],
-   local_ip: "192.168.110.79",
+  local_ip: IPMAC[0][0],
 });
 
 var options = {
@@ -36,10 +35,9 @@ var options = {
   }
 };
 
-http.request(options, function (res) {
-  receive(res, function (data) {
+http.request(options, function(res) {
+  receive(res, function(data) {
     var obj = JSON.parse(data);
-    console.log("Request response from IoT server:");
     console.log(obj);
   });
 }).end(message);
@@ -47,33 +45,21 @@ http.request(options, function (res) {
 function receive(incoming, callback) {
   var data = '';
 
-  incoming.on('data', function (chunk) {
+  incoming.on('data', function(chunk) {
     data += chunk;
   });
 
-  incoming.on('end', function () {
+  incoming.on('end', function() {
     callback ? callback(data) : '';
   });
 }
 
-function getLocalIP() {
-  var addr = [];
-  fs.readFile('./config/machine_net_interface.json', function (err, data) {
-      if (err)
-      {
-        console.log("read error!");
-      }
-      else
-      {
-        var obj = JSON.parse(data);
-        addr = obj.wlan0;
-        console.log(addr);
-        var ip = addr[0][0];
-        console.log(ip);
-        var mac = addr[1][0];
-        console.log(mac);
-      }
-  });
+function getIPMAC() {
+  var fd = fs.openSync('./config/machine_net_interface.json', 'r');
+  var buffer = new Buffer(256);
+  var bytesRead = fs.readSync(fd, buffer, 0, buffer.length, 0);
+  var str = buffer.toString();
+  var obj = JSON.parse(str);
 
-  return addr;
+  return obj.wlan0;
 }

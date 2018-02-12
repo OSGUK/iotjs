@@ -31,6 +31,7 @@
 
 from netifaces import interfaces, ifaddresses, AF_INET, AF_LINK
 import json
+import os
 
 # Create an empty dictionary to store machine network config, network interfaces (e.g. 'lo','eth0' and 'wlan0').
 # Create ip address list and network interfaces list.
@@ -39,7 +40,7 @@ ip_addresses = []
 mac_addresses = []
 network_interfaces = interfaces()
 file_name = 'machine_net_interface.json'            # File name of json file
-file_dir = '/home/pi/iotjs_osguk/iotjs/http_demo/config/'
+file_dir = os.getcwd();
 full_file_path = file_dir + file_name
 
 
