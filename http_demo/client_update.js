@@ -16,13 +16,16 @@
 
 
 var http = require('http');
+var fs = require('fs');
+
+var IPMAC = [];
+IPMAC = getIPMAC();
 
 var message = JSON.stringify({
-  device_id: '16',
+  device_id: IPMAC[1][0],
   device_name: 'IoT Device Raspberry Pi0-W',
-  local_ip: '192.168.110.120',
+  local_ip: IPMAC[0][0],
 });
-
 
 var options = {
   hostname: 'http://www.noisyatom.tech/',
@@ -34,7 +37,6 @@ var options = {
   }
 };
 
-
 function update_registration(){
   http.request(options, function (res) {
     receive(res, function (data) {
@@ -43,7 +45,6 @@ function update_registration(){
     });
   }).end(message);
 }
-
 
 function receive(incoming, callback) {
   var data = '';
@@ -57,14 +58,21 @@ function receive(incoming, callback) {
   });
 }
 
+function getIPMAC() {
+  var fd = fs.openSync('./config/machine_net_interface.json', 'r');
+  var buffer = new Buffer(256);
+  var bytesRead = fs.readSync(fd, buffer, 0, buffer.length, 0);
+  var str = buffer.toString();
+  var obj = JSON.parse(str);
 
-
+  return obj.wlan0;
+}
 
 var timeout = setInterval(function() {
-  // Do something which will be executed repeatadly one time per second.
+  // Update our registration every 60 seconds
   update_registration();
   console.log('Updating registration - using http [PUT]');
-}, 10000);
+}, 60000);
 
 
 
