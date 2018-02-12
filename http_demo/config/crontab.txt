@@ -24,5 +24,5 @@
 @reboot sleep 60 && python /home/pi/iotjs_osguk/iotjs/http_demo/config/ip_get.py
 @reboot sleep 70 && iotjs /home/pi/iotjs_osguk/iotjs/http_demo/client_registration.js
 @reboot sleep 80 && iotjs /home/pi/iotjs_osguk/iotjs/http_demo/client_update.js
-@reboot sleep 90 && sudo iotjs /home/pi/iotjs_osguk/iotjs/http_demo/
+@reboot sleep 90 && iotjs /home/pi/iotjs_osguk/iotjs/http_demo/server_html.js
 
