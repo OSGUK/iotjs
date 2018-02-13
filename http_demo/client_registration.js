@@ -60,6 +60,8 @@ function getIPMAC() {
   var bytesRead = fs.readSync(fd, buffer, 0, buffer.length, 0);
   var str = buffer.toString();
   var obj = JSON.parse(str);
+  
+  fs.closeSync(fd);
 
   return obj.wlan0;
 }
