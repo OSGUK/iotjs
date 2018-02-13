@@ -14,7 +14,7 @@
  */
 
 var http = require('http');
-var port = 8080;
+var port = 80;
 var path = '/light';
 
 var fs = require('fs');
