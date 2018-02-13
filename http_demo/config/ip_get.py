@@ -59,4 +59,4 @@ with open(full_file_path, 'w') as fp:
     json.dump(machine_interface_dict, fp)
 
 print('***** File Written *****')
-print(' ---- File name: {}'.format(file_name))
+print(' ---- File name: {}'.format(full_file_path))
