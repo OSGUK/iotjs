@@ -43,20 +43,19 @@ file_name = 'machine_net_interface.json'            # File name of json file
 file_dir = '/home/pi/iotjs_osguk/iotjs/http_demo/config/'
 full_file_path = file_dir + file_name
 
+def detect_interfaces():
+   for ifaceName in interfaces():
+       ip_addresses.append([i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr': 'No IP addr'}])])
 
-for ifaceName in interfaces():
-    ip_addresses.append([i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr': 'No IP addr'}])])
-
-for ifaceName in interfaces():
-    mac_addresses.append([i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_LINK, [{'addr': 'No IP addr'}])])
+   for ifaceName in interfaces():
+       mac_addresses.append([i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_LINK, [{'addr': 'No IP addr'}])])
 
 
-machine_interface_dict = dict(zip(network_interfaces, zip(ip_addresses, mac_addresses)))
+   machine_interface_dict = dict(zip(network_interfaces, zip(ip_addresses, mac_addresses)))
+   print('***** Found network interfaces *****')
 
-print('***** Found network interfaces *****')
+   with open(full_file_path, 'w') as fp:
+       json.dump(machine_interface_dict, fp)
 
-with open(full_file_path, 'w') as fp:
-    json.dump(machine_interface_dict, fp)
-
-print('***** File Written *****')
-print(' ---- File name: {}'.format(full_file_path))
+   print('***** File Written *****')
+   print(' ---- File name: {}'.format(full_file_path))
