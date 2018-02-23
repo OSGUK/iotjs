@@ -40,8 +40,8 @@ ip_addresses = []
 mac_addresses = []
 network_interfaces = interfaces()
 file_name = 'machine_net_interface.json'            # File name of json file
-file_dir = os.getcwd()
-full_file_path = file_dir + "/" + file_name
+file_dir = '/home/pi/iotjs_osguk/iotjs/http_demo/config/'
+full_file_path = file_dir + file_name
 
 
 for ifaceName in interfaces():

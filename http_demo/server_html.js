@@ -20,6 +20,13 @@ var path = '/light';
 var fs = require('fs');
 var lightcontrol = require('./lightcontrol.js');
 
+// Setup environment variables
+var pwd = process.env.IOTJS_PATH || '/home/pi/iotjs_osguk/iotjs/http_demo/';
+var lightControl = 'onoff.html';
+var lightControlPath = pwd + lightControl;
+
+
+
 var server = http.createServer(function(req, res) {
   // The path for onoff.html is relevant. Here I assume that it's in the same directory of
   // the server file and iotjs binary. Change it in relevant to your iotjs binary path
@@ -28,11 +35,10 @@ var server = http.createServer(function(req, res) {
 
   console.log(req.url);
   var myval = req.url.split('/');
-  console.log(myval[1]);
 
   if (myval[1] == 'light') {
-    console.log('yahoo');
-    fs.readFile('onoff.html', function(err, data) {
+    console.log('rendering page');
+    fs.readFile(lightControlPath, function(err, data) {
       res.writeHead(200, {
         'Content-Type': 'text/html',
         'Content-Length': data.length

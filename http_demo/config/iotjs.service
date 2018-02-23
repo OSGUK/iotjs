@@ -1,0 +1,16 @@
+[Unit]
+Description=Prototype IoTJS Server
+Documentation=https://github.com/OSGUK/iotjs/blob/http_server_webpage/http_demo/README.md
+After=network.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/iotjs /home/pi/iotjs_osguk/iotjs/http_demo/server_html.js
+Restart=always
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+Alias=iotjs.service
+
